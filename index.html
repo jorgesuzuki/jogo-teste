@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>❤️ Uma Pergunta Importante ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#fff0f6;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    padding:20px;
+    max-width:400px;
+}
+
+img{
+    width:100%;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+h1{
+    margin:25px 0;
+    color:#d63384;
+    font-size:2rem;
+}
+
+button{
+    border:none;
+    padding:15px 25px;
+    border-radius:12px;
+    font-size:1.1rem;
+    cursor:pointer;
+}
+
+#sim{
+    background:#28a745;
+    color:white;
+}
+
+#nao{
+    background:#dc3545;
+    color:white;
+    position:fixed;
+}
+
+.botoes{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+.final{
+    display:none;
+}
+
+.coracao{
+    position:fixed;
+    font-size:25px;
+    animation:subir 4s linear forwards;
+}
+
+@keyframes subir{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="inicio">
+
+    <img src="carecudo.jpg">
+
+    <h1>
+        Laís, aceita namorar comigo? ❤️
+    </h1>
+
+    <div class="botoes">
+        <button id="sim">SIM 💜</button>
+    </div>
+
+</div>
+
+<button id="nao">NÃO 😢</button>
+
+<div class="container final" id="final">
+
+    <img src="casal.jpg">
+
+    <h1>❤️ ELA DISSE SIM ❤️</h1>
+
+    <p style="font-size:1.2rem; margin-top:20px;">
+        Você acabou de desbloquear a versão oficial do Jorge.
+        <br><br>
+        Prometo continuar te fazendo rir,
+        te apoiar e tirar fotos horríveis minhas
+        para te mandar.
+        <br><br>
+        Agora é oficial. 💜
+    </p>
+
+</div>
+
+<script>
+
+const nao = document.getElementById("nao");
+
+function fugir(){
+
+    const largura = window.innerWidth - 120;
+    const altura = window.innerHeight - 60;
+
+    const x = Math.random() * largura;
+    const y = Math.random() * altura;
+
+    nao.style.left = x + "px";
+    nao.style.top = y + "px";
+}
+
+nao.addEventListener("mouseover", fugir);
+
+nao.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    fugir();
+});
+
+document.getElementById("sim").onclick = () => {
+
+    document.getElementById("inicio").style.display="none";
+    nao.style.display="none";
+
+    document.getElementById("final").style.display="block";
+
+    for(let i=0;i<60;i++){
+
+        const heart = document.createElement("div");
+
+        heart.className="coracao";
+        heart.innerHTML="💜";
+
+        heart.style.left=Math.random()*100+"vw";
+
+        heart.style.animationDuration=
+            (Math.random()*3+2)+"s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },5000);
+    }
+}
+</script>
+
+</body>
+</html>
