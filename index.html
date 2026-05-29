@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>❤️ Uma Pergunta Importante ❤️</title>
+<title>Álbum Privado</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -17,34 +18,48 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     background:#fff0f6;
     min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
 }
 
 .container{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     text-align:center;
     padding:20px;
-    max-width:400px;
 }
 
 img{
-    width:100%;
+    width:90%;
+    max-width:400px;
     border-radius:20px;
     box-shadow:0 5px 20px rgba(0,0,0,.2);
 }
 
+h2{
+    color:#888;
+    margin-bottom:15px;
+}
+
 h1{
-    margin:25px 0;
     color:#d63384;
+    margin-top:20px;
+    margin-bottom:25px;
     font-size:2rem;
+}
+
+.botoes{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    margin-top:10px;
 }
 
 button{
     border:none;
-    padding:15px 25px;
     border-radius:12px;
+    padding:15px 25px;
     font-size:1.1rem;
     cursor:pointer;
 }
@@ -52,95 +67,168 @@ button{
 #sim{
     background:#28a745;
     color:white;
+    transition:0.2s;
 }
 
 #nao{
     background:#dc3545;
     color:white;
-    position:fixed;
 }
 
-.botoes{
-    margin-top:20px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-}
-
-.final{
+#processando,
+#final{
     display:none;
+}
+
+.barra{
+    width:300px;
+    max-width:90%;
+    height:25px;
+    background:#ddd;
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.preenchimento{
+    width:0%;
+    height:100%;
+    background:#d63384;
 }
 
 .coracao{
     position:fixed;
-    font-size:25px;
-    animation:subir 4s linear forwards;
+    font-size:30px;
+    animation:subir linear forwards;
+    pointer-events:none;
 }
 
 @keyframes subir{
+
     from{
         transform:translateY(100vh);
         opacity:1;
     }
 
     to{
-        transform:translateY(-100px);
+        transform:translateY(-150px);
         opacity:0;
     }
+
 }
+
 </style>
 </head>
-
 <body>
 
 <div class="container" id="inicio">
 
-    <img src="carecudo.jpg">
+    <h2>💜 Uma pergunta importante... 💜</h2>
+
+    <img src="carecudo.jpg" alt="Carecudo">
 
     <h1>
-        Laís, aceita namorar comigo? ❤️
+        Laís, aceita namorar comigo?
     </h1>
 
     <div class="botoes">
         <button id="sim">SIM 💜</button>
+        <button id="nao">NÃO 😢</button>
     </div>
 
 </div>
 
-<button id="nao">NÃO 😢</button>
+<div class="container" id="processando">
 
-<div class="container final" id="final">
+    <h1>Processando resposta...</h1>
 
-    <img src="casal.jpg">
+    <div class="barra">
+        <div class="preenchimento" id="barra"></div>
+    </div>
+
+    <p style="margin-top:20px;">
+        Verificando compatibilidade...
+    </p>
+
+</div>
+
+<div class="container" id="final">
+
+    <img src="casal.jpg" alt="Casal">
 
     <h1>❤️ ELA DISSE SIM ❤️</h1>
 
-    <p style="font-size:1.2rem; margin-top:20px;">
+    <p style="font-size:1.2rem; max-width:500px; margin-top:20px;">
+
         Você acabou de desbloquear a versão oficial do Jorge.
+
         <br><br>
-        Prometo continuar te fazendo rir,
-        te apoiar e tirar fotos horríveis minhas
-        para te mandar.
+
+        Benefícios inclusos:
+
         <br><br>
+
+        ✔ Companhia
+
+        <br>
+
+        ✔ Apoio
+
+        <br>
+
+        ✔ Carinho
+
+        <br>
+
+        ✔ Fotos horríveis enviadas aleatoriamente
+
+        <br><br>
+
         Agora é oficial. 💜
+
     </p>
 
 </div>
 
 <script>
 
+const sim = document.getElementById("sim");
 const nao = document.getElementById("nao");
+
+const frases = [
+"Tem certeza? 😢",
+"Olha esse careca ❤️",
+"Ele tentou arrumar o cabelo 😭",
+"Não estraga o sonho dele 😂",
+"A resposta certa é SIM 💜",
+"Você não vai me clicar 😎",
+"Última chance 👀",
+"CASA... digo... NAMORA comigo? ❤️"
+];
+
+let indice = 0;
+let tamanho = 1;
 
 function fugir(){
 
-    const largura = window.innerWidth - 120;
-    const altura = window.innerHeight - 60;
+    nao.style.position = "fixed";
 
-    const x = Math.random() * largura;
-    const y = Math.random() * altura;
+    nao.innerText = frases[indice];
 
-    nao.style.left = x + "px";
-    nao.style.top = y + "px";
+    indice++;
+
+    if(indice >= frases.length){
+        indice = 0;
+    }
+
+    tamanho += 0.05;
+    sim.style.transform = `scale(${tamanho})`;
+
+    const largura = window.innerWidth - 220;
+    const altura = window.innerHeight - 100;
+
+    nao.style.left = Math.random() * largura + "px";
+    nao.style.top = Math.random() * altura + "px";
 }
 
 nao.addEventListener("mouseover", fugir);
@@ -150,32 +238,60 @@ nao.addEventListener("touchstart", function(e){
     fugir();
 });
 
-document.getElementById("sim").onclick = () => {
+sim.addEventListener("click", ()=>{
 
-    document.getElementById("inicio").style.display="none";
-    nao.style.display="none";
+    document.getElementById("inicio").style.display = "none";
 
-    document.getElementById("final").style.display="block";
+    document.getElementById("processando").style.display = "flex";
 
-    for(let i=0;i<60;i++){
+    let progresso = 0;
 
-        const heart = document.createElement("div");
+    const barra = document.getElementById("barra");
 
-        heart.className="coracao";
-        heart.innerHTML="💜";
+    const intervalo = setInterval(()=>{
 
-        heart.style.left=Math.random()*100+"vw";
+        progresso += 5;
 
-        heart.style.animationDuration=
-            (Math.random()*3+2)+"s";
+        barra.style.width = progresso + "%";
 
-        document.body.appendChild(heart);
+        if(progresso >= 100){
+
+            clearInterval(intervalo);
+
+            document.getElementById("processando").style.display = "none";
+
+            document.getElementById("final").style.display = "flex";
+
+            chuvaDeCoracoes();
+        }
+
+    },100);
+
+});
+
+function chuvaDeCoracoes(){
+
+    for(let i=0;i<80;i++){
+
+        const coracao = document.createElement("div");
+
+        coracao.className = "coracao";
+
+        coracao.innerHTML = "💜";
+
+        coracao.style.left = Math.random()*100 + "vw";
+
+        coracao.style.animationDuration =
+            (Math.random()*3 + 2) + "s";
+
+        document.body.appendChild(coracao);
 
         setTimeout(()=>{
-            heart.remove();
+            coracao.remove();
         },5000);
     }
 }
+
 </script>
 
 </body>
